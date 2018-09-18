@@ -8,7 +8,8 @@ import { Subscription } from "rxjs";
 })
 export class AboutPage {
   // @ViewChildren("values") childList: QueryList<ElementRef>  如果这样后面处理的时候，可能会遇到类型错误，定义为any容错性比较高
-  @ViewChildren("values") childList: any
+  @ViewChildren("values")
+  childList: any;
   subs = new Subscription();
   BAG = "HANDLES";
   public constructor(private dragulaService: DragulaService) {
@@ -42,11 +43,11 @@ export class AboutPage {
       // 拖出 el拖动的元素，container整个列表
       dragulaService.out(this.BAG).subscribe(({ el, container }) => {
         console.log("out", el, container);
-        // this.removeClass(container, "ex-over");
+        let ss: any = container;
         var arr = [];
-        console.log(this.childList, "获取子节点");
-        for(let i = 0; i < this.childList._results.length; i++) {
-          arr.push(this.childList._results[i].nativeElement.innerText);
+        // this.removeClass(container, "ex-over");
+        for (var i = 0; i < ss.children.length; i++) {
+          arr.push(ss.children[i].children[0].innerText);
         }
         // 返回排序后的id数组
         console.log(arr);
@@ -77,3 +78,4 @@ export class AboutPage {
     }
   }
 }
+
