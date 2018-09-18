@@ -9,66 +9,14 @@
 <ion-content no-bounce class="no-scroll">
   <div class="list_content">
     <div dragula="HANDLES">
-      <div class="list_item_content">
+      <div class="list_item_content" [ngClass]="{'pressclass': pc==i}" *ngFor="let item of arrs; let i = index">
         <div class="h_left" #values>
-          1
+          {{item.number}}
         </div>
         <div class="h_center">
-          html5 + css3 + dev
+          {{item.content}}
         </div>
-        <div class="h_right">
-          <div class="push_button">
-            <span class="handle">---</span>
-          </div>
-        </div>
-      </div>
-      <div class="list_item_content">
-        <div class="h_left" #values>
-          2
-        </div>
-        <div class="h_center">
-          flex布局
-        </div>
-        <div class="h_right">
-          <div class="push_button">
-            <span class="handle">---</span>
-          </div>
-        </div>
-      </div>
-      <div class="list_item_content">
-        <div class="h_left" #values>
-          3
-        </div>
-        <div class="h_center">
-          angular mvvm框架
-        </div>
-        <div class="h_right">
-          <div class="push_button">
-            <span class="handle">---</span>
-          </div>
-        </div>
-      </div>
-      <div class="list_item_content">
-        <div class="h_left" #values>
-          4
-        </div>
-        <div class="h_center">
-          ionic App开发框架
-        </div>
-        <div class="h_right">
-          <div class="push_button">
-            <span class="handle">---</span>
-          </div>
-        </div>
-      </div>
-      <div class="list_item_content">
-        <div class="h_left" #values>
-          5
-        </div>
-        <div class="h_center">
-          react native最接近元素的jsApp开发框架
-        </div>
-        <div class="h_right">
+        <div class="h_right" (press)="presscFun(i)">
           <div class="push_button">
             <span class="handle">---</span>
           </div>

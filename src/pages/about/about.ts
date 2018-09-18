@@ -10,9 +10,29 @@ export class AboutPage {
   // @ViewChildren("values") childList: QueryList<ElementRef>  如果这样后面处理的时候，可能会遇到类型错误，定义为any容错性比较高
   @ViewChildren("values")
   childList: any;
+  pc: number;
+  arrs: any;
   subs = new Subscription();
   BAG = "HANDLES";
   public constructor(private dragulaService: DragulaService) {
+    this.arrs = [
+      {
+        number: 1,
+        content: "html + css + javascript"
+      },
+      {
+        number: 2,
+        content: "html5 + css3 +jquery"
+      },
+      {
+        number: 3,
+        content: "bootstrap / primeng + angular"
+      },
+      {
+        number: 4,
+        content: "ionic3 + cordova"
+      }
+    ]
     dragulaService.createGroup("HANDLES", {
       moves: (el, container, handle) => {
         return handle.className === "handle";
@@ -22,7 +42,7 @@ export class AboutPage {
     this.subs.add(
       // 拖动
       dragulaService.drag(this.BAG).subscribe(({ el }) => {
-        // this.removeClass(el, "ex-moved");
+        // this.addClass(el, "ex-moved");
         console.log(el);
       })
     );
@@ -51,6 +71,8 @@ export class AboutPage {
         }
         // 返回排序后的id数组
         console.log(arr);
+
+        this.pc = null;
       })
     );
     // });
@@ -77,5 +99,8 @@ export class AboutPage {
       );
     }
   }
-}
 
+  presscFun(i) {
+    this.pc = i;
+  }
+}
