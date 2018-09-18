@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 
 import { Subscription } from "rxjs";
@@ -7,6 +7,8 @@ import { Subscription } from "rxjs";
   templateUrl: "./about.html"
 })
 export class AboutPage {
+  // @ViewChildren("values") childList: QueryList<ElementRef>  如果这样后面处理的时候，可能会遇到类型错误，定义为any容错性比较高
+  @ViewChildren("values") childList: any
   subs = new Subscription();
   BAG = "HANDLES";
   public constructor(private dragulaService: DragulaService) {
@@ -15,6 +17,7 @@ export class AboutPage {
         return handle.className === "handle";
       }
     });
+    // window.addEventListener("touchmove", () => {
     this.subs.add(
       // 拖动
       dragulaService.drag(this.BAG).subscribe(({ el }) => {
@@ -36,12 +39,20 @@ export class AboutPage {
       })
     );
     this.subs.add(
-      // 拖出
+      // 拖出 el拖动的元素，container整个列表
       dragulaService.out(this.BAG).subscribe(({ el, container }) => {
-        console.log("out", container);
+        console.log("out", el, container);
         // this.removeClass(container, "ex-over");
+        var arr = [];
+        console.log(this.childList, "获取子节点");
+        for(let i = 0; i < this.childList._results.length; i++) {
+          arr.push(this.childList._results[i].nativeElement.innerText);
+        }
+        // 返回排序后的id数组
+        console.log(arr);
       })
     );
+    // });
   }
 
   // 销毁拖动事件
